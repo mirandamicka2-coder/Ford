@@ -341,64 +341,37 @@ def registrar_accion(cam_id, accion, detalle=""):
 # ─────────────────────────────────────────────
 # HEADER
 # ─────────────────────────────────────────────
-# ─────────────────────────────────────────────
-# HEADER
-# ─────────────────────────────────────────────
 def render_header():
-
-    # 1. Ajustamos levemente la proporción para darle más aire al logo (de [1, 8] a [1.5, 8.5])
-    col1, col2 = st.columns([1.5, 8.5])
-
-    with col1:
-        # 2. Agregamos use_container_width=True para evitar que se corte
+    # Creamos 3 columnas: Logo, Título principal y Reloj/Fecha
+    col_logo, col_titulo, col_reloj = st.columns([1, 3.5, 1.5])
+    
+    with col_logo:
+        # El logo con la propiedad para que se adapte al ancho y no se corte
         st.image("ford_logo.png", use_container_width=True)
-
-    with col2:
-
-        now = datetime.now()
-
-        # 3. ELIMINAMOS LA SANGRÍA del HTML. 
-        # Tiene que estar pegado al margen izquierdo para que Markdown no lo tome como bloque de código.
-        header_html = f"""
-<div style="
-    padding-top:12px;
-    padding-bottom:14px;
-    border-bottom:3px solid #003478;
-    margin-bottom:20px;
-">
-
-    <div style="
-        font-size:48px;
-        font-weight:800;
-        color:#003478;
-        line-height:1;
-        margin-bottom:4px;
-    ">
+        
+    with col_titulo:
+        # Título principal (alineado a la izquierda)
+        st.markdown("""
+<div style="padding: 8px 0 16px 0; border-bottom: 2px solid #003478; margin-bottom: 20px;">
+    <div style="font-size:28px; font-weight:800; color:#003478; letter-spacing:-0.5px;">
         FLOW
     </div>
-
-    <div style="
-        font-size:13px;
-        color:#6b7280;
-        letter-spacing:0.15em;
-        text-transform:uppercase;
-    ">
+    <div style="font-size:11px; color:#6b7280; letter-spacing:0.12em; text-transform:uppercase; margin-top:2px;">
         Ford Logistics Operations Window
     </div>
-
-    <div style="
-        margin-top:10px;
-        font-size:14px;
-        color:#003478;
-        font-weight:600;
-    ">
-        FORD PACHECO · {now.strftime('%d/%m/%Y %H:%M')}
-    </div>
-
 </div>
-"""
-
-        st.markdown(header_html, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
+        
+    with col_reloj:
+        now = datetime.now()
+        # Fecha y hora (alineado a la derecha)
+        st.markdown(f"""
+<div style="text-align:right; padding: 8px 0 16px 0; border-bottom: 2px solid #003478; margin-bottom: 20px;">
+    <div style="font-size:22px; font-weight:700; color:#003478;">{now.strftime('%H:%M:%S')}</div>
+    <div style="font-size:11px; color:#6b7280;">{now.strftime('%d / %m / %Y')}</div>
+    <div style="font-size:11px; color:#003478; font-weight:600; margin-top:4px;">🏭 FORD PACHECO</div>
+</div>
+""", unsafe_allow_html=True)
 # ─────────────────────────────────────────────
 # RENDER CAMIÓN CARD
 # ─────────────────────────────────────────────
