@@ -341,55 +341,64 @@ def registrar_accion(cam_id, accion, detalle=""):
 # ─────────────────────────────────────────────
 # HEADER
 # ─────────────────────────────────────────────
+# ─────────────────────────────────────────────
+# HEADER
+# ─────────────────────────────────────────────
 def render_header():
 
-    col1, col2 = st.columns([1, 6])
+    # 1. Ajustamos levemente la proporción para darle más aire al logo (de [1, 8] a [1.5, 8.5])
+    col1, col2 = st.columns([1.5, 8.5])
 
     with col1:
-        st.image("ford_logo.png", width=90)
+        # 2. Agregamos use_container_width=True para evitar que se corte
+        st.image("ford_logo.png", use_container_width=True)
 
     with col2:
 
         now = datetime.now()
 
-        st.markdown(f"""
-        <div style="
-            padding-top:18px;
-            padding-bottom:18px;
-            border-bottom:2px solid #003478;
-            margin-bottom:20px;
-        ">
+        # 3. ELIMINAMOS LA SANGRÍA del HTML. 
+        # Tiene que estar pegado al margen izquierdo para que Markdown no lo tome como bloque de código.
+        header_html = f"""
+<div style="
+    padding-top:12px;
+    padding-bottom:14px;
+    border-bottom:3px solid #003478;
+    margin-bottom:20px;
+">
 
-            <div style="
-                font-size:42px;
-                font-weight:800;
-                color:#003478;
-                line-height:1.1;
-                margin-bottom:6px;
-            ">
-                FLOW
-            </div>
+    <div style="
+        font-size:48px;
+        font-weight:800;
+        color:#003478;
+        line-height:1;
+        margin-bottom:4px;
+    ">
+        FLOW
+    </div>
 
-            <div style="
-                font-size:13px;
-                color:#6b7280;
-                letter-spacing:0.12em;
-                text-transform:uppercase;
-            ">
-                Ford Logistics Operations Window
-            </div>
+    <div style="
+        font-size:13px;
+        color:#6b7280;
+        letter-spacing:0.15em;
+        text-transform:uppercase;
+    ">
+        Ford Logistics Operations Window
+    </div>
 
-            <div style="
-                margin-top:10px;
-                font-size:14px;
-                color:#003478;
-                font-weight:600;
-            ">
-                🏭 FORD PACHECO · {now.strftime('%d/%m/%Y %H:%M')}
-            </div>
+    <div style="
+        margin-top:10px;
+        font-size:14px;
+        color:#003478;
+        font-weight:600;
+    ">
+        FORD PACHECO · {now.strftime('%d/%m/%Y %H:%M')}
+    </div>
 
-        </div>
-        """, unsafe_allow_html=True)
+</div>
+"""
+
+        st.markdown(header_html, unsafe_allow_html=True)
 # ─────────────────────────────────────────────
 # RENDER CAMIÓN CARD
 # ─────────────────────────────────────────────
@@ -431,7 +440,7 @@ def render_truck_card(c, show_buttons=True, preview_mode=False):
             <div><span style="color:#9ca3af;">Punto pedido</span><br><b>{c.get('punto_pedido','—')} u.</b></div>
         </div>
         {"<div style='margin-top:8px; padding:6px 10px; background:#fee2e2; border-radius:6px; font-size:11px; color:#b91c1c;'>⚠️ MATERIAL CRÍTICO — Riesgo de parada de línea</div>" if estado == "Crítico" else ""}
-        {"<div style='margin-top:8px; padding:6px 10px; background:#fef9c3; border-radius:6px; font-size:11px; color:#a16207;'>⏱ CAMIÓN DEMORADO — Llegó fuera de ventana</div>" if estado == "Atrasado" else ""}
+        {"<div style='margin-top:8px; padding:8px 12px; background:#fef3c7; border:1px solid #fcd34d; border-radius:8px; font-size:11px; color:#92400e; font-weight:600;'>⏱ CAMIÓN DEMORADO — Llegó fuera de ventana</div>" if estado == "Atrasado" else ""}
         {"<div style='margin-top:8px; padding:6px 10px; background:#dcfce7; border-radius:6px; font-size:11px; color:#15803d;'>✅ Descargado a las " + str(c.get('hora_descarga','—')) + "</div>" if c['descargado'] else ""}
     </div>
     """, unsafe_allow_html=True)
