@@ -151,6 +151,7 @@ st.markdown("""
     div[data-testid="stMetricValue"] { color: #003478 !important; }
 </style>
 """, unsafe_allow_html=True)
+
  
 # ─────────────────────────────────────────────
 # DATOS INICIALES
@@ -341,21 +342,14 @@ def registrar_accion(cam_id, accion, detalle=""):
 # HEADER
 # ─────────────────────────────────────────────
 def render_header():
+
     col1, col2 = st.columns([1, 6])
 
     with col1:
-        st.markdown(
-            """
-            <div style="display:flex; align-items:center; height:120px;">
-            """,
-            unsafe_allow_html=True
-        )
-
         st.image("ford_logo.png", width=90)
 
-        st.markdown("</div>", unsafe_allow_html=True)
-
     with col2:
+
         now = datetime.now()
 
         st.markdown(f"""
