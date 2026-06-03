@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 import random
 import os
 import json
+
  
 # ─────────────────────────────────────────────
 # CONFIG
@@ -340,28 +341,61 @@ def registrar_accion(cam_id, accion, detalle=""):
 # HEADER
 # ─────────────────────────────────────────────
 def render_header():
-    col1, col2 = st.columns([3, 1])
+    col1, col2 = st.columns([1, 6])
+
     with col1:
-        st.markdown("""
-        <div style="padding: 8px 0 16px 0; border-bottom: 2px solid #003478; margin-bottom: 20px;">
-            <div style="font-size:28px; font-weight:800; color:#003478; letter-spacing:-0.5px;">
-                FLOW
-            </div>
-            <div style="font-size:11px; color:#6b7280; letter-spacing:0.12em; text-transform:uppercase; margin-top:2px;">
-                Ford Logistics Operations Window
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div style="display:flex; align-items:center; height:120px;">
+            """,
+            unsafe_allow_html=True
+        )
+
+        st.image("ford_logo.png", width=90)
+
+        st.markdown("</div>", unsafe_allow_html=True)
+
     with col2:
         now = datetime.now()
+
         st.markdown(f"""
-        <div style="text-align:right; padding: 8px 0 16px 0; border-bottom: 2px solid #003478; margin-bottom: 20px;">
-            <div style="font-size:22px; font-weight:700; color:#003478;">{now.strftime('%H:%M:%S')}</div>
-            <div style="font-size:11px; color:#6b7280;">{now.strftime('%d / %m / %Y')}</div>
-            <div style="font-size:11px; color:#003478; font-weight:600; margin-top:4px;">🏭 FORD PACHECO</div>
+        <div style="
+            padding-top:18px;
+            padding-bottom:18px;
+            border-bottom:2px solid #003478;
+            margin-bottom:20px;
+        ">
+
+            <div style="
+                font-size:42px;
+                font-weight:800;
+                color:#003478;
+                line-height:1.1;
+                margin-bottom:6px;
+            ">
+                FLOW
+            </div>
+
+            <div style="
+                font-size:13px;
+                color:#6b7280;
+                letter-spacing:0.12em;
+                text-transform:uppercase;
+            ">
+                Ford Logistics Operations Window
+            </div>
+
+            <div style="
+                margin-top:10px;
+                font-size:14px;
+                color:#003478;
+                font-weight:600;
+            ">
+                🏭 FORD PACHECO · {now.strftime('%d/%m/%Y %H:%M')}
+            </div>
+
         </div>
         """, unsafe_allow_html=True)
- 
 # ─────────────────────────────────────────────
 # RENDER CAMIÓN CARD
 # ─────────────────────────────────────────────
